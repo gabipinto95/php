@@ -1,0 +1,6 @@
+<?php
+function cargarMascotas() {
+        //array $misMascotas
+        $misMascotas [3] [3];
+        return $misMascotas;
+?>
