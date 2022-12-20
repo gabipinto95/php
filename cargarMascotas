@@ -1,6 +1,57 @@
 <?php
-function cargarMascotas() {
-        //array $misMascotas
-        $misMascotas [3] [3];
-        return $misMascotas;
-?>
+    /**Función que retorna un bono según el estado civil del empleado y la zona en la que trabaja
+      *@param int $zona
+      *@param string $estadoCiv
+      *@return float
+      */
+         function calcularBono ($zona, $estadoCiv) {
+                 //float $bono
+                 $bono = 0;
+                 if ($zona == 1) {
+                    $bono = 60000.00;
+                 } elseif ($zona == 2) {
+                    $bono = 32000.00;
+                 } elseif ($zona == 3) {
+                    $bono = 45000.00;
+                 } else {
+                    $bono = 38000.00;
+                 }
+                 if ($estadoCiv == "casado") {
+                    $bono = $bono * 1.05;
+                 }
+                 return $bono;
+         }
+           /**En base a la cantidad de empleados ingresados, muestra por pantalla la cantidad de bonos que la empresa tiene que pagar y el porcentaje de empleados casados
+         *int $cantEmpleados, $nroZona, $i, $cantCasados
+         *float $elBono, $acumBonos, $porcentajeCasados
+         *string $estadoCivil
+         */
+           $porcentajeCasados = 0;
+           $acumBonos = 0;
+           $cantCasados = 0;
+           $elBono = 0;
+           echo "Ingrese la cantidad de empleados: ";
+           $cantEmpleados = trim(fgets(STDIN));
+           for($i = 0; $i < $cantEmpleados; $i++) 
+           {
+             echo "Ingrese la zona: ";
+             $nroZona = trim(fgets(STDIN));
+             echo "Ingrese el estado civil: ";
+             $estadoCivil = trim(fgets(STDIN));
+             $elBono = calcularBono($nroZona, $estadoCivil);
+             $acumBonos = $acumBonos + $elBono; 
+             if($estadoCivil == "casado") 
+             {
+               $cantCasados++;
+             }
+           }
+           if($cantEmpleados > 0)
+           {
+             $porcentajeCasados = $cantCasados * 100 / $cantEmpleados;
+             echo "La cantidad de bonos que la empresa tuvo que pagar fue de " . $acumBonos . "\n";
+             echo "El porcentaje de empleados casados es " . $porcentajeCasados . "%";
+           } else 
+           {
+             echo "No se registraron empleados.";
+           }
+ 
